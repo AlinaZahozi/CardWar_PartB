@@ -2,6 +2,8 @@
 #include <iostream>
 #include <string>
 #include "player.hpp"
+#include "card.hpp"
+#include "cardStack.hpp"
 using namespace std;
 
 
@@ -11,13 +13,13 @@ namespace ariel{
         private:  
         Player first_player;
         Player second_player; 
+        CardStack cardsToDivide;
         string log;
         int number_of_draws;
         
         public:
             // Constructor
-            Game(){}
-            Game(Player p1 ,Player p2);
+            Game(Player,Player);
 
             // Getters 
             Player get_first_player();
