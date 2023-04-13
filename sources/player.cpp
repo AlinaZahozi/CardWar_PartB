@@ -7,9 +7,18 @@ using namespace std;
 
 namespace ariel{
 
+    int Player::playerCount = 0;
+
     // Constructor
     Player::Player(string name) {
-        
+        Player::playerCount++;
+        this->player_name = name;
+        this->player_number = Player::playerCount;
+        this->is_availible = true;
+        this->num_of_taken_cards = 0;
+        this->cards_won = "";
+        this->total_wins = 0;
+        this->total_games_played = 0;
     }
 
     // Getters 
@@ -19,10 +28,6 @@ namespace ariel{
 
     int Player::get_player_number(){
          return this->player_number;
-    }
-
-    stack<Card> Player::get_cards(){
-        return this->cards;
     }
 
     bool Player::get_is_availible(){
@@ -41,6 +46,10 @@ namespace ariel{
         return this->total_wins;
     }
 
+    int Player::get_total_games_played(){
+        return this->total_games_played;
+    }
+
     // Setter
     void Player::set_player_name(string name) {
         cout << " ";
@@ -50,17 +59,21 @@ namespace ariel{
         cout << " ";
     }
 
+    void Player::set_total_games_played(int num){
+        cout << " ";
+    }
+
     // To string
     string Player::to_string() {
         return "Player ";
     }
 
     int Player::stacksize(){
-        return 0;
+        return this->cards.size();
     }
 
     int Player::cardesTaken(){
-        return 0;
+        return this->num_of_taken_cards;
     }
 
 }
