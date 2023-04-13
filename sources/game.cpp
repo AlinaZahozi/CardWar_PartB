@@ -12,28 +12,37 @@ using namespace std;
 namespace ariel{
 
 // Constructor
-Game::Game(Player p1 ,Player p2){
+Game::Game(Player& p1 ,Player& p2):
+    first_player(p1),
+    second_player(p2)
+    {
     if(p1.get_is_availible() == true){
         if(p2.get_is_availible() == true){
-            this->first_player = p1;
-            this->second_player = p2;
+           // this->first_player = p1;
+           // this->second_player = p2;
             this->log = "";
-            this->last_turn= "";
-            this->number_of_draws 0;
+            this->last_turn = "";
+            this->number_of_draws = 0;
             
             for(int i = 52; i > 0 ; i--){
-                Card c = cardsToDivide.cards.pop();
+                //string s1 = cardsToDivide.cards.top().get_card_type();
+                //string s2 = cardsToDivide.cards.top().get_card_value();
+                Card &c = cardsToDivide.cards.top();
+                //Card c(s1,s2);
+                cardsToDivide.cards.pop();
                 srand(static_cast<unsigned int>(time(nullptr)));
                 int ran = (rand() % 100) + 1;
+                cout << to_string(ran);
                 if(ran < 50 && first_player.stacksize() < 26){
-                    first_player.cards.push(c);
+                    first_player.sPush(c);
                 }
                 else if(second_player.stacksize() < 26){
-                    second_player.cards.push(c);
+                    second_player.sPush(c);
                 }
                 else{
-                    first_player.cards.push(c);
+                    first_player.sPush(c);
                 }
+                srand(static_cast<unsigned int>(time(nullptr)));
             }
         }
         else{
@@ -69,29 +78,30 @@ int Game::get_number_of_draws(){
 // Methods
 void Game::playTurn(){
     if(first_player.stacksize() == 0 ||second_player.stacksize() == 0) throw string("Game is already over");
-    Card c1;
-    Card c2;
-    if(first_player.cards.size() > 0){
-        c1 = first_player.cards.pop();
+    int strength1 = 0;
+    int strength2 = 0;
+    if(first_player.stacksize() > 0){
+        strength1 = first_player.sTop().get_strength();
+        first_player.sPop();
     }
-    if(second_player.cards.size() > 0){
-        c2 = second_player.cards.pop();
+    if(second_player.stacksize() > 0){
+        strength2 = second_player.sTop().get_strength();
+        second_player.sPop();
     }
-    if(c1.get_strength() == 14 && c2.get_strength() == 2){
+    if(strength1 == 14 && strength2 == 2){
         second_player.addWin();
     }
-    else if(c1.get_strength() == 2 && c2.get_strength() == 14){
+    else if(strength1 == 2 && strength2 == 14){
         first_player.addWin();
     }
     else{
-        if(c1.get_strength() > c2.get_strength()){
+        if(strength1 > strength2){
             first_player.addWin();
         }
-        else if(c1.get_strength() < c2.get_strength()){
+        else if(strength1 < strength2){
             second_player.addWin();
         }
-        else if(c1.get_strength() == c2.get_strength()){
-            
+        else if(strength1 == strength2){
             playdraw();
         }
     }

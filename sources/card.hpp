@@ -14,16 +14,19 @@ namespace ariel{
     public:
         // Constructor
         Card(string,string);
+       // Card(const Card& other);
+        //~Card();
+       // Card& operator=(const Card& other);
 
-        string get_card_type();
+        string get_card_type() const;
 
-        string get_card_value();
+        string get_card_value() const;
 
-        int get_strength();
+        int get_strength() const;
 
-        int calc_strength(string);
+        int calc_strength(string) const;
 
-        string to_string();
+        string to_string() const;
     };
 
 }

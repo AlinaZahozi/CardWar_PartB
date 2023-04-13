@@ -11,8 +11,8 @@ namespace ariel{
 
     class Game {
         private:  
-        Player first_player;
-        Player second_player; 
+        Player &first_player;
+        Player &second_player; 
         CardStack cardsToDivide;
         string log;
         string last_turn;
@@ -20,7 +20,7 @@ namespace ariel{
         
         public:
             // Constructor
-            Game(Player,Player);
+            Game(Player&,Player&);
 
             // Getters 
             Player get_first_player();
@@ -32,6 +32,7 @@ namespace ariel{
 
             // Methods
             void playTurn();
+            void playdraw();
             void printLastTurn();
             void playAll();
             void printWiner();
