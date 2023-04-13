@@ -23,7 +23,10 @@ Game::Game(Player& p1 ,Player& p2):
             this->log = "";
             this->last_turn = "";
             this->number_of_draws = 0;
-            dividecards();
+            for(int i = 52; i > 0 ; i--, srand((unsigned) time(NULL))){
+                srand((unsigned) time(NULL));
+                dividecards();
+            }
         }
         else{
             cout << "" << p2.get_player_name() << "is not availible to play";
@@ -36,32 +39,32 @@ Game::Game(Player& p1 ,Player& p2):
 
 void Game::dividecards(){
     cout << to_string(cardsToDivide.cards.size()) << endl;
-    for(int i = 52; i > 0 ; i--, srand((unsigned) time(NULL))){
+    //for(int i = 52; i > 0 ; i--, srand((unsigned) time(NULL))){
         //string s1 = cardsToDivide.cards.top().get_card_type();
         //string s2 = cardsToDivide.cards.top().get_card_value();
         Card &c = cardsToDivide.cards.top();
-        cout << "" << c.get_card_type << endl;
+        //cout << "" << c.get_card_type() << endl;
         //Card c(s1,s2);
         cardsToDivide.cards.pop();
         // Providing a seed value
-	    srand((unsigned) time(NULL));
+	    //srand((unsigned) time(NULL));
         //srand(static_cast<unsigned int>(time(nullptr)));
         int ran = ((rand()) % 100) + 1; // Get a random number
-        cout << to_string(ran) << endl;
+        //cout << to_string(ran) << endl;
         if(ran < 50 && first_player.stacksize() < 26){
             first_player.sPush(c);
-            cout << "" << first_player.stacksize() << endl;
+            //cout << "" << first_player.stacksize() << endl;
         }
         else if(second_player.stacksize() < 26){
             second_player.sPush(c);
-            cout << "" << second_player.stacksize() << endl;
+            //cout << "" << second_player.stacksize() << endl;
         }
         else{
             first_player.sPush(c);
-            cout << "" << first_player.stacksize() << endl;
+            //cout << "" << first_player.stacksize() << endl;
         }
         //srand((unsigned) time(NULL));
-        }
+        
 
 }
 
@@ -88,17 +91,17 @@ int Game::get_number_of_draws(){
 
 // Methods
 void Game::playTurn(){
+    if(first_player.get_player_name().compare(second_player.get_player_name()) == 0){
+        if(first_player.get_identification_number() == second_player.get_identification_number()) throw string("You have entered the same player. Please enter another player"); 
+    }
     if(first_player.stacksize() == 0 ||second_player.stacksize() == 0) throw string("Game is already over");
-    int strength1 = 0;
-    int strength2 = 0;
-    if(first_player.stacksize() > 0){
-        strength1 = first_player.sTop().get_strength();
-        first_player.sPop();
-    }
-    if(second_player.stacksize() > 0){
-        strength2 = second_player.sTop().get_strength();
-        second_player.sPop();
-    }
+    int strength1 = first_player.sTop().get_strength();
+    //cout << "" << "strength1 = " << to_string(strength1) << endl;
+    int strength2 = second_player.sTop().get_strength();
+    //cout << "" << "strength2 = " << to_string(strength2) << endl;
+    first_player.sPop();
+    second_player.sPop();
+
     if(strength1 == 14 && strength2 == 2){
         second_player.addWin();
     }

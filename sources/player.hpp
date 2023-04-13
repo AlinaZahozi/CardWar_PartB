@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include <string>
 #include <stack>
 using namespace std;
@@ -12,7 +14,7 @@ namespace ariel{
     class Player {
     private:  
         string player_name;
-       // int player_number;
+        int identification_number;
         bool is_availible;
         int num_of_taken_cards;
         string cards_won;
@@ -28,7 +30,7 @@ namespace ariel{
 
         // Getters 
         string get_player_name();
-       // int get_player_number();
+        int get_identification_number();
         bool get_is_availible();
         int get_num_of_taken_cards();
         string get_cards_won();

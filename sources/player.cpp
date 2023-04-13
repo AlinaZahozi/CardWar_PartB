@@ -1,4 +1,6 @@
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include <string>
 #include "player.hpp"
 #include "card.hpp"
@@ -20,6 +22,9 @@ namespace ariel{
         this->total_wins = 0;
         this->total_games_played = 0;
         cout << "dsvd" << to_string(cards.size());
+
+        srand((unsigned) time(NULL));
+        this->identification_number = rand();
     }
 
     // Getters 
@@ -27,9 +32,9 @@ namespace ariel{
         return this->player_name;
     }
 
-   // int Player::get_player_number(){
-   //      return this->player_number;
-    //}
+    int Player::get_identification_number(){
+        return this->identification_number;
+    }
 
     bool Player::get_is_availible(){
         return this->is_availible;

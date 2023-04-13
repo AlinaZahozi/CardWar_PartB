@@ -1,5 +1,7 @@
 #pragma once
 #include <iostream>
+#include <cstdlib>
+#include <ctime>
 #include <string>
 #include "player.hpp"
 #include "card.hpp"
