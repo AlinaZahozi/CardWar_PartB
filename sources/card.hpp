@@ -9,6 +9,7 @@ namespace ariel{
         
     string card_type;
     string card_value;
+    int strength;
   
     public:
         // Constructor
@@ -17,6 +18,10 @@ namespace ariel{
         string get_card_type();
 
         string get_card_value();
+
+        int get_strength();
+
+        int calc_strength(string);
 
         string to_string();
     };

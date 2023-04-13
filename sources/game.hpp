@@ -15,6 +15,7 @@ namespace ariel{
         Player second_player; 
         CardStack cardsToDivide;
         string log;
+        string last_turn;
         int number_of_draws;
         
         public:
@@ -25,16 +26,9 @@ namespace ariel{
             Player get_first_player();
             Player get_second_player();
             string get_log();
+            string get_last_turn();
             int get_number_of_draws();
-            
 
-            // Setter
-            void set_first_player(Player);
-            void set_second_player(Player);
-            
-
-            // To string
-            string to_string();
 
             // Methods
             void playTurn();

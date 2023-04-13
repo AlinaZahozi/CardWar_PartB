@@ -39,6 +39,7 @@ namespace ariel{
         void set_player_name(string);
         void set_is_availible(bool);
         void set_total_games_played(int);
+        void addWin();
 
         // To string
         string to_string();

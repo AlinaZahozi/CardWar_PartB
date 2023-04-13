@@ -63,9 +63,14 @@ namespace ariel{
         cout << " ";
     }
 
+    void Player::addWin(){
+        this->num_of_taken_cards++;
+        this->total_wins++;
+    }
+
     // To string
     string Player::to_string() {
-        return "Player ";
+        return "" + this->player_name;
     }
 
     int Player::stacksize(){
