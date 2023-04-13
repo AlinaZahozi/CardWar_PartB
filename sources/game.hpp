@@ -31,6 +31,7 @@ namespace ariel{
 
 
             // Methods
+            void dividecards();
             void playTurn();
             void playdraw();
             void printLastTurn();

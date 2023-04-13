@@ -23,27 +23,7 @@ Game::Game(Player& p1 ,Player& p2):
             this->log = "";
             this->last_turn = "";
             this->number_of_draws = 0;
-            
-            for(int i = 52; i > 0 ; i--){
-                //string s1 = cardsToDivide.cards.top().get_card_type();
-                //string s2 = cardsToDivide.cards.top().get_card_value();
-                Card &c = cardsToDivide.cards.top();
-                //Card c(s1,s2);
-                cardsToDivide.cards.pop();
-                srand(static_cast<unsigned int>(time(nullptr)));
-                int ran = (rand() % 100) + 1;
-                cout << to_string(ran);
-                if(ran < 50 && first_player.stacksize() < 26){
-                    first_player.sPush(c);
-                }
-                else if(second_player.stacksize() < 26){
-                    second_player.sPush(c);
-                }
-                else{
-                    first_player.sPush(c);
-                }
-                srand(static_cast<unsigned int>(time(nullptr)));
-            }
+            dividecards();
         }
         else{
             cout << "" << p2.get_player_name() << "is not availible to play";
@@ -52,6 +32,37 @@ Game::Game(Player& p1 ,Player& p2):
     else{
         cout << "" << p1.get_player_name() << "is not availible to play";
     }
+}
+
+void Game::dividecards(){
+    cout << to_string(cardsToDivide.cards.size()) << endl;
+    for(int i = 52; i > 0 ; i--, srand((unsigned) time(NULL))){
+        //string s1 = cardsToDivide.cards.top().get_card_type();
+        //string s2 = cardsToDivide.cards.top().get_card_value();
+        Card &c = cardsToDivide.cards.top();
+        cout << "" << c.get_card_type << endl;
+        //Card c(s1,s2);
+        cardsToDivide.cards.pop();
+        // Providing a seed value
+	    srand((unsigned) time(NULL));
+        //srand(static_cast<unsigned int>(time(nullptr)));
+        int ran = ((rand()) % 100) + 1; // Get a random number
+        cout << to_string(ran) << endl;
+        if(ran < 50 && first_player.stacksize() < 26){
+            first_player.sPush(c);
+            cout << "" << first_player.stacksize() << endl;
+        }
+        else if(second_player.stacksize() < 26){
+            second_player.sPush(c);
+            cout << "" << second_player.stacksize() << endl;
+        }
+        else{
+            first_player.sPush(c);
+            cout << "" << first_player.stacksize() << endl;
+        }
+        //srand((unsigned) time(NULL));
+        }
+
 }
 
 // Getters 
