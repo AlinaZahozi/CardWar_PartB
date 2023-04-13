@@ -1,6 +1,7 @@
 #include <iostream>
 #include <cstdlib>
 #include <ctime>
+//# include <unistd.h>
 #include <string>
 #include "game.hpp"
 #include "player.hpp"
@@ -23,10 +24,7 @@ Game::Game(Player& p1 ,Player& p2):
             this->log = "";
             this->last_turn = "";
             this->number_of_draws = 0;
-            for(int i = 52; i > 0 ; i--, srand((unsigned) time(NULL))){
-                srand((unsigned) time(NULL));
-                dividecards();
-            }
+            dividecards();
         }
         else{
             cout << "" << p2.get_player_name() << "is not availible to play";
@@ -39,19 +37,14 @@ Game::Game(Player& p1 ,Player& p2):
 
 void Game::dividecards(){
     cout << to_string(cardsToDivide.cards.size()) << endl;
-    //for(int i = 52; i > 0 ; i--, srand((unsigned) time(NULL))){
-        //string s1 = cardsToDivide.cards.top().get_card_type();
-        //string s2 = cardsToDivide.cards.top().get_card_value();
+    for(int i = 52,j = 20; i > 0 ; i--){
+        srand((unsigned) time(NULL));
         Card &c = cardsToDivide.cards.top();
-        //cout << "" << c.get_card_type() << endl;
-        //Card c(s1,s2);
         cardsToDivide.cards.pop();
-        // Providing a seed value
-	    //srand((unsigned) time(NULL));
-        //srand(static_cast<unsigned int>(time(nullptr)));
-        int ran = ((rand()) % 100) + 1; // Get a random number
-        //cout << to_string(ran) << endl;
-        if(ran < 50 && first_player.stacksize() < 26){
+        int sum = i+j;
+        int ran = ((rand()) % j++) + 1 + rand()%(sum); // Get a random number
+        cout << "rand:" << to_string(ran) << endl;
+        if((ran%2) == 0 && first_player.stacksize() < 26){
             first_player.sPush(c);
             //cout << "" << first_player.stacksize() << endl;
         }
@@ -62,10 +55,8 @@ void Game::dividecards(){
         else{
             first_player.sPush(c);
             //cout << "" << first_player.stacksize() << endl;
-        }
-        //srand((unsigned) time(NULL));
-        
-
+        } 
+    }
 }
 
 // Getters 
