@@ -15,13 +15,14 @@ namespace ariel{
     Player::Player(string name) {
        // Player::playerCount++;
         this->player_name = name;
+        cout << "players name: " << 
        // this->player_number = Player::playerCount;
         this->is_availible = true;
         this->num_of_taken_cards = 0;
         this->cards_won = "";
         this->total_wins = 0;
         this->total_games_played = 0;
-        cout << "dsvd" << to_string(cards.size());
+        //cout << "dsvd" << to_string(cards.size());
 
         srand((unsigned) time(NULL));
         this->identification_number = rand();
@@ -58,15 +59,24 @@ namespace ariel{
 
     // Setter
     void Player::set_player_name(string name) {
-        cout << " ";
+        this->player_name = name;
     }
 
     void Player::set_is_availible(bool b){
-        cout << " ";
+        this->is_availible = b;
     }
 
-    void Player::set_total_games_played(int num){
-        cout << " ";
+    void Player::set_total_games_played(){
+        this->total_games_played++ ;
+    }
+
+    void Player::add_card_to_cards_won(string card){
+        if(this->num_of_taken_cards == 1){
+            this->cards_won + card;
+        }
+        else{
+            this->cards_won + ", " + card;
+        }
     }
 
     void Player::addWin(){

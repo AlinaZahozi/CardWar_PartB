@@ -40,7 +40,8 @@ namespace ariel{
         // Setters
         void set_player_name(string);
         void set_is_availible(bool);
-        void set_total_games_played(int);
+        void set_total_games_played();
+        void add_card_to_cards_won(string);
         void addWin();
 
         // To string

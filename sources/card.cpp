@@ -61,7 +61,7 @@ namespace ariel{
 
     // To string
     string Card::to_string() const{
-        return "Card type is: " + this->card_type + " and Card value is: " + this->card_value;
+        return "" + this->card_value + " of " + this->card_type;
     }
 
 }

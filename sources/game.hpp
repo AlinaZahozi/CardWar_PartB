@@ -32,15 +32,19 @@ namespace ariel{
             string get_last_turn();
             int get_number_of_draws();
 
+            void set_last_turn(string);
+
 
             // Methods
             void dividecards();
             void playTurn();
-            void playdraw();
+            int playTurn(string);
+            //void playdraw();
             void printLastTurn();
             void playAll();
             void printWiner();
             void printLog();
+            string draw_rate();
             void printStats();
             void add_to_log(string);
     };
