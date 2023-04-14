@@ -51,6 +51,7 @@ void Game::dividecards(){
         else if(second_player.stacksize() < 26){
             second_player.sPush(c);
             //cout << "" << second_player.stacksize() << endl;
+            //cout << "" << second_player.stacksize() << endl;
         }
         else{
             first_player.sPush(c);
