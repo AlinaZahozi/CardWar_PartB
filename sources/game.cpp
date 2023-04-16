@@ -96,6 +96,7 @@ void Game::playTurn(){
     int flag =  this->playTurn("\n");
     if(flag == 0) throw string("Error");
     printLastTurn();
+    cout << "================================================================================================================================================\n";
 }
 
 // Methods
@@ -103,9 +104,9 @@ int Game::playTurn(string move){
     try{
     string last_move = move;
     if(first_player.get_player_name().compare(second_player.get_player_name()) == 0){
-        if(first_player.get_identification_number() == second_player.get_identification_number()) throw string("You have entered the same player. Please enter another player"); 
+        if(first_player.get_identification_number() == second_player.get_identification_number()) throw string("You have entered the same player. Please try again with another player!\n"); 
     }
-    if(first_player.stacksize() == 0 ||second_player.stacksize() == 0) throw string("Game is already over");
+    if(first_player.stacksize() == 0 ||second_player.stacksize() == 0) throw string("Game is already over!\n");
     first_player.set_total_games_played();
     second_player.set_total_games_played();
     Card& c1 = first_player.sTop();
@@ -179,17 +180,17 @@ int Game::playTurn(string move){
         }
     }
     }catch(string message){
-        cout << "error: " << message << endl;
+        cout << "Error: " << message << endl;
     }
     return 0;
 }
 
 void Game::printLastTurn(){
-    cout << this->last_turn;
+    cout << "Move #" + to_string(this->first_player.get_total_games_played()) + "  " +this->last_turn;
 }
 
 void Game::playAll(){
-    if(first_player.stacksize() == 0 ||second_player.stacksize() == 0) throw string("Game is already over");
+    if(first_player.stacksize() == 0 ||second_player.stacksize() == 0) throw string("Game is already over!\n");
     bool flag = false;
     for (int i = 26; flag == false && i > 0 ;i--) {
         if(first_player.stacksize() == 0 ||second_player.stacksize() == 0){
@@ -204,13 +205,13 @@ void Game::playAll(){
 
 void Game::printWiner(){
     if(first_player.get_num_of_taken_cards() == second_player.get_num_of_taken_cards()){
-        cout << "Its a draw!" << endl; 
+        cout << "GAME OVER - Congratulations its a draw!" << endl; 
     }
     else if(first_player.get_num_of_taken_cards() > second_player.get_num_of_taken_cards()){
-        cout << "" << first_player.get_player_name() << " Wins!" << endl;
+        cout << "GAME OVER - " << first_player.get_player_name() << " Wins!" << endl;
     }
     else{
-        cout << "" << second_player.get_player_name() << " Wins!"<< endl; 
+        cout << "GAME OVER - " << second_player.get_player_name() << " Wins!"<< endl; 
     }
     first_player.set_is_availible(true);
     second_player.set_is_availible(true);
@@ -227,7 +228,7 @@ string Game::draw_rate(){
 }
 
 void Game::printStats(){
-    cout << "Players name: " << this->first_player.get_player_name() << ", win rate: " << this->first_player.get_total_wins() << "% , cards won: " << this->first_player.get_cards_won() << endl; 
+    cout << "\nPlayers name: " << this->first_player.get_player_name() << ", win rate: " << this->first_player.get_total_wins() << "% , cards won: " << this->first_player.get_cards_won() << endl; 
     cout << "Players name: " << this->second_player.get_player_name() << ", win rate: " << this->second_player.get_total_wins() << ", cards won: " << this->second_player.get_cards_won()  << endl; 
     cout << "Draw rate:" << this->draw_rate() << "% , amount of draws that happand:" << this->get_number_of_draws() << endl;    
 }
