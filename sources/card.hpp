@@ -9,6 +9,7 @@ namespace ariel{
         
     string card_type;
     string card_value;
+    string card;
     int strength;
   
     public:
@@ -18,15 +19,15 @@ namespace ariel{
         //~Card();
        // Card& operator=(const Card& other);
 
-        string get_card_type() const;
+        string get_card_type();
 
-        string get_card_value() const;
+        string get_card_value();
 
-        int get_strength() const;
+        int get_strength();
 
-        int calc_strength(string) const;
+        int calc_strength(const string&);
 
-        string to_string() const;
+        string card_to_string();
     };
 
 }

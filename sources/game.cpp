@@ -19,23 +19,82 @@ Game::Game(Player& p1 ,Player& p2):
     {
     if(p1.get_is_availible() == true){
         if(p2.get_is_availible() == true){
-           // this->first_player = p1;
-           // this->second_player = p2;
             first_player.set_is_availible(false);
             second_player.set_is_availible(false);
-            this->log = "";
-            this->last_turn = "";
             this->number_of_draws = 0;
             dividecards();
         }
         else{
-            cout << "" << p2.get_player_name() << "is not availible to play";
+            cout << " " << p2.get_player_name() << "is not availible to play";
         }
     }
     else{
-        cout << "" << p1.get_player_name() << "is not availible to play";
+        cout << " " << p1.get_player_name() << "is not availible to play";
     }
 }
+
+/*
+// Copy constructor
+Game::Game(const Game& other):
+first_player(other.first_player),
+second_player(other.second_player),
+log(new string(*other.log)),
+last_turn(new string(*other.last_turn)),
+number_of_draws(other.number_of_draws){};
+
+
+// Copy assignment operator
+Game& Game::operator=(const Game& other) {
+    if(this != &other) {
+        first_player = other.first_player;
+        second_player = other.second_player;
+        *log = *other.log;
+        *last_turn = *other.last_turn;
+        number_of_draws = other.number_of_draws;
+    }
+    return *this;
+}
+
+// Move constructor
+Game::Game(Game&& other):
+    first_player(move(other.first_player)),
+    second_player(move(other.second_player)),
+    log(other.log),
+    last_turn(other.last_turn),
+    number_of_draws(other.number_of_draws){
+    other.log = nullptr;
+    other.last_turn = nullptr;
+}
+
+Game& Game::operator=(Game&& other) noexcept{
+    if(this != &other) {
+        // Release the resources held by the current object
+        delete log;
+        delete last_turn;
+        // Move the resources from the other object to the current object
+        first_player = other.first_player;
+        second_player = other.second_player;
+        //deck = std::move(other.deck);
+        //middle_cards = std::move(other.middle_cards);
+        //first_player_cards = std::move(other.first_player_cards);
+        //second_player_cards = std::move(other.second_player_cards);
+        number_of_draws = other.number_of_draws;
+        log = other.log;
+        last_turn = other.last_turn;
+
+        // Reset the other object
+        other.log = nullptr;
+        other.last_turn = nullptr;
+    }
+    return *this;
+}
+
+Game::~Game(){
+    delete this->log;
+    delete this->last_turn;
+}
+
+*/
 
 void Game::dividecards(){
     cout << to_string(cardsToDivide.cards.size()) << endl;
@@ -72,29 +131,30 @@ Player Game::get_second_player(){
     return this->second_player;
 }
 
+int Game::get_number_of_draws(){
+    return this->number_of_draws;
+}
 string Game::get_log(){
     return this->log;
 }
-
+            
 string Game::get_last_turn(){
     return this->last_turn;
 }
 
-int Game::get_number_of_draws(){
-    return this->number_of_draws;
-}
-
-void Game::set_last_turn(string move){
+void Game::set_last_turn(const string& move){
     this->last_turn = move;
 }
 
 void Game::playTurn(){
-   int flag =  this->playTurn("");
+    set_last_turn("");
+    int flag =  this->playTurn("");
     if(flag == 0) throw string("Error");
 }
 
 // Methods
 int Game::playTurn(string move){
+    try{
     string last_move = move;
     if(first_player.get_player_name().compare(second_player.get_player_name()) == 0){
         if(first_player.get_identification_number() == second_player.get_identification_number()) throw string("You have entered the same player. Please enter another player"); 
@@ -104,109 +164,104 @@ int Game::playTurn(string move){
     second_player.set_total_games_played();
     Card& c1 = first_player.sTop();
     Card& c2 = second_player.sTop();
+    string card1 = c1.card_to_string();
+    string card2 = c2.card_to_string();
     first_player.sPop();
     second_player.sPop();
-    //int strength1 = first_player.sTop().get_strength();
     int strength1 = c1.get_strength();
-    //cout << "" << "strength1 = " << to_string(strength1) << endl;
-    //int strength2 = second_player.sTop().get_strength();
+    //cout << "" << "strength1 = " << card_to_string(strength1) << endl;
     int strength2 = c2.get_strength();
-    //cout << "" << "strength2 = " << to_string(strength2) << endl;
-
-    //first_player.sPop();
-    //second_player.sPop();
-
+    //cout << "" << "strength2 = " << card_to_string(strength2) << endl;
     if(strength1 == 14 && strength2 == 2){
+        cout << "22222222222222222222" << endl;
         second_player.addWin();
-        //second_player.add_card_to_cards_won(first_player.sTop(. ).to_string());
-        //second_player.add_card_to_cards_won(second_player.sTop().to_string());
-        second_player.add_card_to_cards_won(c1.to_string());
-        second_player.add_card_to_cards_won(c2.to_string());
-        //last_move.append(first_player.get_player_name() << " played " << c1.to_string() << ", " << second_player.get_player_name() << " played " + c2.to_string() << ". " << second_player.get_player_name() << " wins.\n");
-
-        this->set_last_turn(last_move);
-        this->log.append(last_move);
+        second_player.add_card_to_cards_won(card1);
+        second_player.add_card_to_cards_won(card2);
+        last_move.append(first_player.get_player_name() + " played " + c1.card_to_string() + ", " + second_player.get_player_name() + " played " + c2.card_to_string() + ". " + second_player.get_player_name() + " wins.\n");
+        appendToLastTurn(last_move);
+        appendTolog(last_move);
         return 2;
     }
     else if(strength1 == 2 && strength2 == 14){
+        cout << "3333333333333333" << endl;
         first_player.addWin();
-        //first_player.add_card_to_cards_won(first_player.sTop().to_string());
-        //first_player.add_card_to_cards_won(second_player.sTop().to_string());
-        first_player.add_card_to_cards_won(c1.to_string());
-        first_player.add_card_to_cards_won(c2.to_string());
-        //last_move.append(first_player.get_player_name() + " played " + c1.to_string() + ", " + second_player.get_player_name() + " played " + c2.to_string() + ". " + first_player.get_player_name() + " wins.\n");
-
-        this->set_last_turn(last_move);
-        this->log.append(last_move);
+        first_player.add_card_to_cards_won(card1);
+        first_player.add_card_to_cards_won(card2);
+        last_move.append(first_player.get_player_name() + " played " + c1.card_to_string() + ", " + second_player.get_player_name() + " played " + c2.card_to_string() + ". " + first_player.get_player_name() + " wins.\n");
+        appendToLastTurn(last_move);
+        appendTolog(last_move);
         return 1;
     }
     else{
+        cout << "44444444444444444" << endl;
         if(strength1 > strength2){
         first_player.addWin();
-        //first_player.add_card_to_cards_won(first_player.sTop().to_string());
-        //first_player.add_card_to_cards_won(second_player.sTop().to_string());
-        first_player.add_card_to_cards_won(c1.to_string());
-        first_player.add_card_to_cards_won(c2.to_string());
-        //last_move.(first_player.get_player_name() + " played " + c1.to_string() + ", " + second_player.get_player_name() + " played " + c2.to_string() + ". " + first_player.get_player_name() + " wins.\n");
-
-        this->set_last_turn(last_move);
-        this->log.append(last_move);
+        first_player.add_card_to_cards_won(card1);
+        first_player.add_card_to_cards_won(card2);
+        last_move.append(first_player.get_player_name() + " played " + c1.card_to_string() + ", " + second_player.get_player_name() + " played " + c2.card_to_string() + ". " + first_player.get_player_name() + " wins.\n");
+        appendToLastTurn(last_move);
+        appendTolog(last_move);
         return 1;
         }
         else if(strength1 < strength2){
+        cout << "55555555555555555" << endl;
         second_player.addWin();
-        //second_player.add_card_to_cards_won(first_player.sTop(. ).to_string());
-        //second_player.add_card_to_cards_won(second_player.sTop().to_string());
-        second_player.add_card_to_cards_won(c1.to_string());
-        second_player.add_card_to_cards_won(c2.to_string());
-        //last_move.appendappend(first_player.get_player_name() + " played " + c1.to_string() + ", " + second_player.get_player_name() + " played " + c2.to_string() + ". " + second_player.get_player_name() + " wins.\n");
-
-        this->set_last_turn(last_move);
-        this->log.append(last_move);
+        second_player.add_card_to_cards_won(card1);
+        second_player.add_card_to_cards_won(card2);
+        cout << "a" << endl;
+        last_move.append(first_player.get_player_name() + " played " + c1.card_to_string() + ", " + second_player.get_player_name() + " played " + c2.card_to_string() + ". " + second_player.get_player_name() + " wins.\n");
+        cout << "b" << endl;
+        appendToLastTurn(last_move);
+        cout << "c" << endl;
+        appendTolog(last_move);
+        cout << "d" << endl;
         return 2;
         }
         else if(strength1 == strength2){
+            cout << "6666666666666666666" << endl;
             this->number_of_draws++;
             if(first_player.stacksize() == 0 ||second_player.stacksize() == 0){
                 printWiner();
+                return 3;
             }
             else{
-                //last_move.append(first_player.get_player_name() + " played " + c1.to_string() + ", " + second_player.get_player_name() + " played " + c2.to_string() + ". Draw. " );
+                last_move.append(first_player.get_player_name() + " played " + c1.card_to_string() + ", " + second_player.get_player_name() + " played " + c2.card_to_string() + ". Draw." );
                 int winner = playTurn(last_move);
+                cout << "winner : "<< to_string(winner) << endl;
+                cout << "rfgrwe4gt" << endl;
                 if( winner == 1){
+                    cout << "here\n" ;
                     first_player.addWin();
-                    //first_player.add_card_to_cards_won(first_player.sTop().to_string());
-                    //first_player.add_card_to_cards_won(second_player.sTop().to_string());
-                    first_player.add_card_to_cards_won(c1.to_string());
-                    first_player.add_card_to_cards_won(c2.to_string());
+                    cout << " or here\n" ;
+                    first_player.add_card_to_cards_won(card1);
+                    first_player.add_card_to_cards_won(card2);
+                    cout << "7777777777777777" << endl;
+                    return 1;
                 }
                 else if( winner == 2){
+                    cout << "here\n" ;
                     second_player.addWin();
-                    //first_player.add_card_to_cards_won(first_player.sTop().to_string());
-                    //first_player.add_card_to_cards_won(second_player.sTop().to_string());
-                    second_player.add_card_to_cards_won(c1.to_string());
-                    second_player.add_card_to_cards_won(c2.to_string());
+                    cout << " or here\n" ;
+                    cout << to_string(second_player.get_num_of_taken_cards()) << endl;
+                    cout << c1.card_to_string() << endl;
+                    second_player.add_card_to_cards_won(card1);
+                    second_player.add_card_to_cards_won(card2);
+                    cout << "8888888888888888" << endl;
+                    return 2;
                 }
                 else return 0;
             }
         }
     }
+    }catch(string message){
+        cout << "error: " << message << endl;
+    }
     return 0;
 }
 
-/*
-void Game::playdraw(){
-    if(first_player.stacksize() == 0 ||second_player.stacksize() == 0){
-        printWiner();
-    }
-    else{
-        this->number_of_draws++;
-        playTurn();
-    }
-}*/
-
 void Game::printLastTurn(){
-    cout << this->last_turn;
+    //cout << this->last_turn;
+    cout << "last_turn" << endl;
 }
 
 void Game::playAll(){
@@ -231,10 +286,13 @@ void Game::printWiner(){
     else{
         cout << "" << second_player.get_player_name() << " Wins!"<< endl; 
     }
+    first_player.set_is_availible(true);
+    second_player.set_is_availible(true);
 }
 
+
 void Game::printLog(){
-    cout << this->get_log();
+   cout << get_log();
 }
 
 string Game::draw_rate(){
@@ -248,10 +306,12 @@ void Game::printStats(){
     cout << "Draw rate:" << this->draw_rate() << "% , amount of draws that happand:" << this->get_number_of_draws() << endl;    
 }
 
-void Game::add_to_log(string){
-    cout << " ";   
-
+void Game::appendTolog(const string& appendString){
+    this->log.append(appendString);
 }
 
+void Game::appendToLastTurn(const string& appendString){
+    this->last_turn.append(appendString);
 
+}
 }

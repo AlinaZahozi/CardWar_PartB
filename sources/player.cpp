@@ -12,14 +12,15 @@ namespace ariel{
    // int Player::playerCount = 0;
 
     // Constructor
-    Player::Player(string name) {
+    Player::Player(string name){
        // Player::playerCount++;
         this->player_name = name;
-        cout << "players name: " << 
+        cout << "players name: " << this->player_name << endl;
        // this->player_number = Player::playerCount;
-        this->is_availible = true;
+        this->set_is_availible(true);
         this->num_of_taken_cards = 0;
-        this->cards_won = "";
+        //this->cards_won = "";
+       // this->cards_won.reserve(1050);
         this->total_wins = 0;
         this->total_games_played = 0;
         //cout << "dsvd" << to_string(cards.size());
@@ -58,7 +59,7 @@ namespace ariel{
     }
 
     // Setter
-    void Player::set_player_name(string name) {
+    void Player::set_player_name(const string& name) {
         this->player_name = name;
     }
 
@@ -70,13 +71,11 @@ namespace ariel{
         this->total_games_played++ ;
     }
 
-    void Player::add_card_to_cards_won(string card){
-        if(this->num_of_taken_cards == 1){
-            this->cards_won + card;
+    void Player::add_card_to_cards_won(const string& card){
+        if(this->num_of_taken_cards != 1){
+            this->cards_won.append(", ");
         }
-        else{
-            this->cards_won + ", " + card;
-        }
+        this->cards_won.append(card);
     }
 
     void Player::addWin(){

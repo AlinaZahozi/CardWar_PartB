@@ -10,6 +10,7 @@ namespace ariel{
     Card::Card(string typ , string val){
         this->card_type = typ;
         this->card_value = val;
+        this->card = this->card_value + " of " + this->card_type;
         this->strength = calc_strength(val);
     }
     /*
@@ -25,22 +26,22 @@ namespace ariel{
     }*/
 
     //Get card type
-    string Card::get_card_type() const{
+    string Card::get_card_type(){
         return this->card_type ;
     }
 
     //Get card value
-    string Card::get_card_value() const{
+    string Card::get_card_value(){
         return this->card_value;
     }
 
     //Get card strength
-    int Card::get_strength() const{
+    int Card::get_strength(){
         return this->strength;
     }
 
     //calculate card strength
-    int Card::calc_strength(string v) const{
+    int Card::calc_strength(const string& v){
         int ans = 0;
         if(v.compare("ACE") == 0) ans = 14;
         else if(v.compare("TWO") == 0) ans = 2;
@@ -60,8 +61,8 @@ namespace ariel{
     }
 
     // To string
-    string Card::to_string() const{
-        return "" + this->card_value + " of " + this->card_type;
+    string Card::card_to_string(){
+        return this->card;
     }
 
 }
