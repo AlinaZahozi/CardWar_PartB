@@ -21,20 +21,32 @@ Game::Game(Player& p1 ,Player& p2):
             first_player.set_is_availible(false);
             second_player.set_is_availible(false);
             this->number_of_draws = 0;
+            cardsToDivide.shuffle();
             dividecards();
         }
         else{
-            cout << " " << p2.get_player_name() << "is not availible to play";
+            cout << p2.get_player_name() << "is not availible to play";
         }
     }
     else{
-        cout << " " << p1.get_player_name() << "is not availible to play";
+        cout << p1.get_player_name() << "is not availible to play";
     }
 }
 
+
 void Game::dividecards(){
-    cout << to_string(cardsToDivide.cards.size()) << endl;
-    for(int i = 52,j = 20; i > 0 ; i--){
+    for(int i = 26; i > 0 ; i--){
+        //Card &c1 = cardsToDivide.cards.top();
+       // cardsToDivide.cards.pop();
+       // first_player.sPush(c1);
+        //Card &c2 = cardsToDivide.cards.top();
+        //cardsToDivide.cards.pop();
+       // second_player.sPush(c2);
+        first_player.sPush(cardsToDivide.cards.top());
+        cardsToDivide.cards.pop();
+        second_player.sPush(cardsToDivide.cards.top());
+        cardsToDivide.cards.pop();
+        /*
         srand((unsigned)j);
         Card &c = cardsToDivide.cards.top();
         cardsToDivide.cards.pop();
@@ -50,6 +62,7 @@ void Game::dividecards(){
         else{
             first_player.sPush(c);
         } 
+        */
     }
 }
 
@@ -80,7 +93,7 @@ void Game::set_last_turn(const string& move){
 
 void Game::playTurn(){
     set_last_turn("");
-    int flag =  this->playTurn("");
+    int flag =  this->playTurn("\n");
     if(flag == 0) throw string("Error");
     printLastTurn();
 }
@@ -107,7 +120,7 @@ int Game::playTurn(string move){
         second_player.addWin();
         second_player.add_card_to_cards_won(card1);
         second_player.add_card_to_cards_won(card2);
-        last_move.append(first_player.get_player_name() + " played " + c1.card_to_string() + ", " + second_player.get_player_name() + " played " + c2.card_to_string() + ". " + second_player.get_player_name() + " wins.\n");
+        last_move.append(first_player.get_player_name() + " played " + card1 + ", " + second_player.get_player_name() + " played " + card2 + ". " + second_player.get_player_name() + " wins.\n");
         appendToLastTurn(last_move);
         appendTolog(last_move);
         return 2;
@@ -116,7 +129,7 @@ int Game::playTurn(string move){
         first_player.addWin();
         first_player.add_card_to_cards_won(card1);
         first_player.add_card_to_cards_won(card2);
-        last_move.append(first_player.get_player_name() + " played " + c1.card_to_string() + ", " + second_player.get_player_name() + " played " + c2.card_to_string() + ". " + first_player.get_player_name() + " wins.\n");
+        last_move.append(first_player.get_player_name() + " played " + card1 + ", " + second_player.get_player_name() + " played " + card2 + ". " + first_player.get_player_name() + " wins.\n");
         appendToLastTurn(last_move);
         appendTolog(last_move);
         return 1;
@@ -126,7 +139,7 @@ int Game::playTurn(string move){
         first_player.addWin();
         first_player.add_card_to_cards_won(card1);
         first_player.add_card_to_cards_won(card2);
-        last_move.append(first_player.get_player_name() + " played " + c1.card_to_string() + ", " + second_player.get_player_name() + " played " + c2.card_to_string() + ". " + first_player.get_player_name() + " wins.\n");
+        last_move.append(first_player.get_player_name() + " played " + card1 + ", " + second_player.get_player_name() + " played " + card2 + ". " + first_player.get_player_name() + " wins.\n");
         appendToLastTurn(last_move);
         appendTolog(last_move);
         return 1;
@@ -135,7 +148,7 @@ int Game::playTurn(string move){
         second_player.addWin();
         second_player.add_card_to_cards_won(card1);
         second_player.add_card_to_cards_won(card2);
-        last_move.append(first_player.get_player_name() + " played " + c1.card_to_string() + ", " + second_player.get_player_name() + " played " + c2.card_to_string() + ". " + second_player.get_player_name() + " wins.\n");
+        last_move.append(first_player.get_player_name() + " played " + card1 + ", " + second_player.get_player_name() + " played " + card2 + ". " + second_player.get_player_name() + " wins.\n");
         appendToLastTurn(last_move);
         appendTolog(last_move);
         return 2;
@@ -147,7 +160,7 @@ int Game::playTurn(string move){
                 return 3;
             }
             else{
-                last_move.append(first_player.get_player_name() + " played " + c1.card_to_string() + ", " + second_player.get_player_name() + " played " + c2.card_to_string() + ". Draw." );
+                last_move.append(first_player.get_player_name() + " played " + card1+ ", " + second_player.get_player_name() + " played " + card2 + ". Draw. " );
                 int winner = playTurn(last_move);
                 if( winner == 1){
                     first_player.addWin();

@@ -2,6 +2,9 @@
 #include <iostream>
 #include <string>
 #include <stack>
+#include <vector>
+#include <random>
+#include <algorithm>
 #include "card.hpp"
 using namespace std;
 
@@ -69,6 +72,8 @@ namespace ariel{
 
         // Constructor
         CardStack();
+
+        void shuffle();
     };
 
 }

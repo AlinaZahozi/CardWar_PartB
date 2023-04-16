@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <algorithm>
 #include "card.hpp"
 using namespace std;
 
@@ -10,20 +11,9 @@ namespace ariel{
     Card::Card(string typ , string val){
         this->card_type = typ;
         this->card_value = val;
-        this->card = this->card_value + " of " + this->card_type;
+        this->card = capitalize(val) + " of " + capitalize(typ);
         this->strength = calc_strength(val);
     }
-    /*
-
-    Card::Card(const Card& other){
-        this->card_type = other.get_card_type();
-        this->card_value = other.get_card_value();
-        this->strength = calc_strength(other.get_card_value());
-    }
-
-    Card::~Card(){
-
-    }*/
 
     //Get card type
     string Card::get_card_type(){
@@ -63,6 +53,24 @@ namespace ariel{
     // To string
     string Card::card_to_string(){
         return this->card;
+    }
+
+
+    /*string Card::capitalize(const string& str){
+    string result = str;
+    transform(result.begin(), result.end(), result.begin(), [](char c) {return tolower(c);});    
+    result[0] = std::toupper(result[0]); 
+    return result;
+    }*/
+
+    string Card::capitalize(const string& str){
+        string ans;
+        copy_if(str.begin(), str.end(), back_inserter(ans), [](char c) {return isalpha(c);});
+        transform(ans.begin(), ans.end(), ans.begin(), [](char c) {return tolower(c);});
+        if (!ans.empty()) {
+            ans[0] = toupper(ans[0]);
+        }
+        return ans;
     }
 
 }

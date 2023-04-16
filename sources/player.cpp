@@ -15,7 +15,7 @@ namespace ariel{
     Player::Player(string name){
        // Player::playerCount++;
         this->player_name = name;
-        cout << "players name: " << this->player_name << endl;
+        //cout << "players name: " << this->player_name << endl;
        // this->player_number = Player::playerCount;
         this->set_is_availible(true);
         this->num_of_taken_cards = 0;

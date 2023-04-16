@@ -1,6 +1,7 @@
 #pragma once
 #include <iostream>
 #include <string>
+#include <algorithm>
 using namespace std;
 
 namespace ariel{
@@ -15,9 +16,6 @@ namespace ariel{
     public:
         // Constructor
         Card(string,string);
-       // Card(const Card& other);
-        //~Card();
-       // Card& operator=(const Card& other);
 
         string get_card_type();
 
@@ -28,6 +26,8 @@ namespace ariel{
         int calc_strength(const string&);
 
         string card_to_string();
+
+        string capitalize(const string& str);
     };
 
 }

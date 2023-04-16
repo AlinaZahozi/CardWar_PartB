@@ -1,5 +1,8 @@
 #include <iostream>
 #include <string>
+#include <vector>
+#include <random>
+#include <algorithm>
 #include "card.hpp"
 #include "cardStack.hpp"
 using namespace std;
@@ -122,4 +125,16 @@ namespace ariel{
        this->cards.push(spadesKING);
     }
 
+    void CardStack::shuffle(){
+        vector <Card> cards_vec;
+        while(!(this->cards.empty())){
+            cards_vec.push_back(this->cards.top());
+            this->cards.pop();
+        } 
+        mt19937 rng(random_device{}());
+        std::shuffle(cards_vec.begin(), cards_vec.end(), rng); 
+        for (const auto& card : cards_vec) {
+            this->cards.push(card);
+        }
+    }
 }
