@@ -42,7 +42,7 @@ namespace ariel{
         void set_is_availible(bool);
         void set_total_games_played();
         void add_card_to_cards_won(const string&);
-        void addWin();
+        void addWin(int);
 
         // To string
        // string to_string();

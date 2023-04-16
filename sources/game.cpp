@@ -23,6 +23,8 @@ Game::Game(Player& p1 ,Player& p2):
             this->number_of_draws = 0;
             cardsToDivide.shuffle();
             dividecards();
+            cout << endl << "The game has started...\n" ;
+            cout << "Players: " << first_player.get_player_name() << " Vs. " << second_player.get_player_name() << "\n\n";
         }
         else{
             cout << p2.get_player_name() << "is not availible to play";
@@ -36,33 +38,10 @@ Game::Game(Player& p1 ,Player& p2):
 
 void Game::dividecards(){
     for(int i = 26; i > 0 ; i--){
-        //Card &c1 = cardsToDivide.cards.top();
-       // cardsToDivide.cards.pop();
-       // first_player.sPush(c1);
-        //Card &c2 = cardsToDivide.cards.top();
-        //cardsToDivide.cards.pop();
-       // second_player.sPush(c2);
         first_player.sPush(cardsToDivide.cards.top());
         cardsToDivide.cards.pop();
         second_player.sPush(cardsToDivide.cards.top());
         cardsToDivide.cards.pop();
-        /*
-        srand((unsigned)j);
-        Card &c = cardsToDivide.cards.top();
-        cardsToDivide.cards.pop();
-        int sum = i+j;
-        int ran = ((rand()) % j++) + 1 + rand()%(sum); // Get a random number
-        cout << "rand:" << to_string(ran) << endl;
-        if((ran%2) == 0 && first_player.stacksize() < 26){
-            first_player.sPush(c);
-        }
-        else if(second_player.stacksize() < 26){
-            second_player.sPush(c);
-        }
-        else{
-            first_player.sPush(c);
-        } 
-        */
     }
 }
 
@@ -92,15 +71,17 @@ void Game::set_last_turn(const string& move){
 }
 
 void Game::playTurn(){
+
     set_last_turn("");
-    int flag =  this->playTurn("\n");
+    int flag = this->playTurn("\n");
     if(flag == 0) throw string("Error");
     printLastTurn();
-    cout << "================================================================================================================================================\n";
+    cout << "=========================================================================================================================================\n";
 }
 
 // Methods
 int Game::playTurn(string move){
+    //cout << "p1.stacksize():" << to_string(this->first_player.stacksize()) << "  p1.cardesTaken():" << to_string(this->first_player.cardesTaken()) << "  p2.stacksize():" << to_string(this->second_player.stacksize()) << "  p2.cardesTaken():" << to_string(this->second_player.cardesTaken()) << endl;
     try{
     string last_move = move;
     if(first_player.get_player_name().compare(second_player.get_player_name()) == 0){
@@ -118,7 +99,7 @@ int Game::playTurn(string move){
     int strength1 = c1.get_strength();
     int strength2 = c2.get_strength();
     if(strength1 == 14 && strength2 == 2){
-        second_player.addWin();
+        second_player.addWin(2);
         second_player.add_card_to_cards_won(card1);
         second_player.add_card_to_cards_won(card2);
         last_move.append(first_player.get_player_name() + " played " + card1 + ", " + second_player.get_player_name() + " played " + card2 + ". " + second_player.get_player_name() + " wins.\n");
@@ -127,7 +108,7 @@ int Game::playTurn(string move){
         return 2;
     }
     else if(strength1 == 2 && strength2 == 14){
-        first_player.addWin();
+        first_player.addWin(2);
         first_player.add_card_to_cards_won(card1);
         first_player.add_card_to_cards_won(card2);
         last_move.append(first_player.get_player_name() + " played " + card1 + ", " + second_player.get_player_name() + " played " + card2 + ". " + first_player.get_player_name() + " wins.\n");
@@ -137,7 +118,7 @@ int Game::playTurn(string move){
     }
     else{
         if(strength1 > strength2){
-        first_player.addWin();
+        first_player.addWin(2);
         first_player.add_card_to_cards_won(card1);
         first_player.add_card_to_cards_won(card2);
         last_move.append(first_player.get_player_name() + " played " + card1 + ", " + second_player.get_player_name() + " played " + card2 + ". " + first_player.get_player_name() + " wins.\n");
@@ -146,7 +127,7 @@ int Game::playTurn(string move){
         return 1;
         }
         else if(strength1 < strength2){
-        second_player.addWin();
+        second_player.addWin(2);
         second_player.add_card_to_cards_won(card1);
         second_player.add_card_to_cards_won(card2);
         last_move.append(first_player.get_player_name() + " played " + card1 + ", " + second_player.get_player_name() + " played " + card2 + ". " + second_player.get_player_name() + " wins.\n");
@@ -157,20 +138,30 @@ int Game::playTurn(string move){
         else if(strength1 == strength2){
             this->number_of_draws++;
             if(first_player.stacksize() == 0 ||second_player.stacksize() == 0){
-                printWiner();
+                //printWiner();
                 return 3;
             }
             else{
                 last_move.append(first_player.get_player_name() + " played " + card1+ ", " + second_player.get_player_name() + " played " + card2 + ". Draw. " );
+                    Card& face_down1 = first_player.sTop();
+                    Card& face_down2 = second_player.sTop();
+                    string card_dowm1 = face_down1.card_to_string();
+                    string card_down2 = face_down2.card_to_string();
+                    first_player.sPop();
+                    second_player.sPop();
                 int winner = playTurn(last_move);
                 if( winner == 1){
-                    first_player.addWin();
+                    first_player.addWin(4);
+                    first_player.add_card_to_cards_won(card_dowm1);
+                    first_player.add_card_to_cards_won(card_down2);
                     first_player.add_card_to_cards_won(card1);
                     first_player.add_card_to_cards_won(card2);
                     return 1;
                 }
                 else if( winner == 2){
-                    second_player.addWin();
+                    second_player.addWin(4);
+                    second_player.add_card_to_cards_won(card_dowm1);
+                    second_player.add_card_to_cards_won(card_down2);
                     second_player.add_card_to_cards_won(card1);
                     second_player.add_card_to_cards_won(card2);
                     return 2;
@@ -186,21 +177,35 @@ int Game::playTurn(string move){
 }
 
 void Game::printLastTurn(){
-    cout << "Move #" + to_string(this->first_player.get_total_games_played()) + "  " +this->last_turn;
+    if(this->last_turn.compare("") != 0) {
+        cout << "Move #" + to_string(this->first_player.get_total_games_played()) + "  " +this->last_turn + "\n";
+    }
 }
 
 void Game::playAll(){
-    if(first_player.stacksize() == 0 ||second_player.stacksize() == 0) throw string("Game is already over!\n");
+    //if(first_player.stacksize() == 0 ||second_player.stacksize() == 0) throw string("Game is already over!\n");
     bool flag = false;
     for (int i = 26; flag == false && i > 0 ;i--) {
         if(first_player.stacksize() == 0 ||second_player.stacksize() == 0){
-            printWiner();
+            //printWiner();
             flag = true;
         }
         else{
             playTurn();
         }
     }
+}
+
+void Game::printWiner(int winner){
+    if(winner == 1){
+        cout << "GAME OVER - " << first_player.get_player_name() << " Wins!" << endl;
+    }
+    else{
+        cout << "GAME OVER - " << second_player.get_player_name() << " Wins!"<< endl; 
+    }
+    cout << "=========================================================================================================================================\n";
+    first_player.set_is_availible(true);
+    second_player.set_is_availible(true);
 }
 
 void Game::printWiner(){
@@ -213,12 +218,14 @@ void Game::printWiner(){
     else{
         cout << "GAME OVER - " << second_player.get_player_name() << " Wins!"<< endl; 
     }
+    cout << "=========================================================================================================================================\n";
     first_player.set_is_availible(true);
     second_player.set_is_availible(true);
 }
 
 
 void Game::printLog(){
+    cout << "Game history: \n";
    cout << get_log();
 }
 

@@ -50,6 +50,7 @@ namespace ariel{
             void printLastTurn();
             void playAll();
             void printWiner();
+            void printWiner(int);
             void printLog();
             string draw_rate();
             void printStats();

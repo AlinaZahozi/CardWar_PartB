@@ -78,8 +78,8 @@ namespace ariel{
         this->cards_won.append(card);
     }
 
-    void Player::addWin(){
-        this->num_of_taken_cards +=2;
+    void Player::addWin(int number_of_cards){
+        this->num_of_taken_cards +=number_of_cards;
         this->total_wins++;
     }
 
