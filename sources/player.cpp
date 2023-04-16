@@ -79,7 +79,7 @@ namespace ariel{
     }
 
     void Player::addWin(){
-        this->num_of_taken_cards++;
+        this->num_of_taken_cards +=2;
         this->total_wins++;
     }
 

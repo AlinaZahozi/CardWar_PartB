@@ -150,6 +150,7 @@ void Game::playTurn(){
     set_last_turn("");
     int flag =  this->playTurn("");
     if(flag == 0) throw string("Error");
+    printLastTurn();
 }
 
 // Methods
@@ -265,10 +266,12 @@ void Game::printLastTurn(){
 }
 
 void Game::playAll(){
-    if(first_player.stacksize() == 0 ||second_player.stacksize() == 0) throw string("Game is already over");
-    for (int i = 26; i > 0 ;i--) {
+    //if(first_player.stacksize() == 0 ||second_player.stacksize() == 0) throw string("Game is already over");
+    bool flag = false;
+    for (int i = 26; flag == false && i > 0 ;i--) {
         if(first_player.stacksize() == 0 ||second_player.stacksize() == 0){
             printWiner();
+            flag = true;
         }
         else{
             playTurn();
