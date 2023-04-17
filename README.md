@@ -19,18 +19,11 @@ In this assignment we will implement card game War for two players and test it b
 
 **In order to fulfill the assignment, I used sources of information on the Internet which can be seen in the following links:**
 
-*Shuffle algorithm: https://en.cppreference.com/w/cpp/algorithm/random_shuffle
-
-*Random device: https://en.cppreference.com/w/cpp/numeric/random/random_device
-
-*Mersenne Twister algorithm: https://en.wikipedia.org/wiki/Mersenne_Twister
-
-*std::mt19937 class: https://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine
-
-*C++ Reference: https://en.cppreference.com/w/
-
-*Stack Overflow: https://stackoverflow.com/
-
-*GeeksforGeeks: https://www.geeksforgeeks.org/
-
-*Topcoder: https://www.topcoder.com/
+* Shuffle algorithm: https://en.cppreference.com/w/cpp/algorithm/random_shuffle
+* Random device: https://en.cppreference.com/w/cpp/numeric/random/random_device
+* Mersenne Twister algorithm: https://en.wikipedia.org/wiki/Mersenne_Twister
+* std::mt19937 class: https://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine
+* C++ Reference: https://en.cppreference.com/w/
+* Stack Overflow: https://stackoverflow.com/
+* GeeksforGeeks: https://www.geeksforgeeks.org/
+* Topcoder: https://www.topcoder.com/
