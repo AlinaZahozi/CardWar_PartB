@@ -1,7 +1,5 @@
 #pragma once
 #include <iostream>
-#include <cstdlib>
-#include <ctime>
 #include <string>
 #include "player.hpp"
 #include "card.hpp"
@@ -38,25 +36,43 @@ namespace ariel{
             //Get last turn - last turn history
             string get_last_turn();
 
-            //Get 
+            //Get the number of draws so far
             int get_number_of_draws();
 
+            //set last turn
             void set_last_turn(const string& move);
 
+            //Append the last turn to game history log
             void appendTolog(const string& appendString);
+
+            //Append the last turn to last turn game history
             void appendToLastTurn(const string& appendString);
 
-
-            // Methods
+            //Divides the cards between the 2 players
             void dividecards();
+
+            //Play a turn in the game
             void playTurn();
-            int playTurn(string);;
+
+            //Play a turn in the game and reterns an flag output
+            int playTurn(string);
+
+            //Prints the last turn game history
             void printLastTurn();
+
+            //Runs turns in the game until there is a winner
             void playAll();
+
+            //Prints the winner at the end of the game
             void printWiner();
-            //void printWiner(int);
+            
+            //Prints the game history so far
             void printLog();
+
+            //Calculates the draw rate and displays as a string
             string draw_rate();
+
+            //Prints basic statistics for each player 
             void printStats();
     };
 
