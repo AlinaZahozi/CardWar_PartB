@@ -93,6 +93,7 @@ int Game::playTurn(string move){
     }
     if(first_player.get_total_games_played() == 26) throw string("Game is already over!\n");
     if(set_winner) return 1;
+    //cout << "11111111111111111111111\n";
     first_player.set_total_games_played();
     second_player.set_total_games_played();
     Card& c1 = first_player.sTop();
@@ -103,6 +104,7 @@ int Game::playTurn(string move){
     second_player.sPop();
     int strength1 = c1.get_strength();
     int strength2 = c2.get_strength();
+    //ccout << "22222222222222222222222222\n";
     if(strength1 == 14 && strength2 == 2){
         second_player.addWin(2);
         second_player.add_card_to_cards_won(card1);
@@ -148,7 +150,7 @@ int Game::playTurn(string move){
             this->number_of_draws++;
             if(first_player.stacksize() == 0 || second_player.stacksize() == 0){
                 this->set_winner = true;
-                return 1;
+                return 3;
             }
             else{
                 last_move.append(first_player.get_player_name() + " played " + card1+ ", " + second_player.get_player_name() + " played " + card2 + ". Draw. " );
@@ -177,7 +179,7 @@ int Game::playTurn(string move){
                     if(first_player.stacksize() == 0 || second_player.stacksize() == 0) this->set_winner = true;
                     return 2;
                 }
-                else return 0;
+                else return 3;
             }
         }
     }
