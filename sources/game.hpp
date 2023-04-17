@@ -25,18 +25,20 @@ namespace ariel{
         public:
             // Constructor
             Game(Player&,Player&);
-            /*
-            Game(const Game& other);
-            Game& operator=(const Game& other);
-            Game(Game&& other);
-            Game& operator=(Game&& other) noexcept ;
-            ~Game();*/
 
-            // Getters 
+            // Get first player
             Player get_first_player();
+
+            // Get second player
             Player get_second_player();
+
+            // Get log - game history
             string get_log();
+
+            //Get last turn - last turn history
             string get_last_turn();
+
+            //Get 
             int get_number_of_draws();
 
             void set_last_turn(const string& move);

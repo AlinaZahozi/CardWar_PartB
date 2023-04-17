@@ -16,3 +16,21 @@ In this assignment we will implement card game War for two players and test it b
 * The turn continues until one of the players takes the pot or runs out of cards.
 * If you run out of cards while breaking a tie, each player takes the cards he threw (divide the pot half and half).
 * The game continues until the players run out of cards and the winner is the player who took the most cards.
+
+**In order to fulfill the assignment, I used sources of information on the Internet which can be seen in the following links:**
+
+*Shuffle algorithm: https://en.cppreference.com/w/cpp/algorithm/random_shuffle
+
+*Random device: https://en.cppreference.com/w/cpp/numeric/random/random_device
+
+*Mersenne Twister algorithm: https://en.wikipedia.org/wiki/Mersenne_Twister
+
+*std::mt19937 class: https://en.cppreference.com/w/cpp/numeric/random/mersenne_twister_engine
+
+*C++ Reference: https://en.cppreference.com/w/
+
+*Stack Overflow: https://stackoverflow.com/
+
+*GeeksforGeeks: https://www.geeksforgeeks.org/
+
+*Topcoder: https://www.topcoder.com/
