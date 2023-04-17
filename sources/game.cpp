@@ -211,18 +211,6 @@ void Game::playAll(){
     }
 }
 
-/*
-void Game::printWiner(int winner){
-    if(winner == 1){
-        cout << "GAME OVER - " << first_player.get_player_name() << " Wins!" << endl;
-    }
-    else{
-        cout << "GAME OVER - " << second_player.get_player_name() << " Wins!"<< endl; 
-    }
-    cout << "=========================================================================================================================================\n";
-    first_player.set_is_availible(true);
-    second_player.set_is_availible(true);
-}*/
 
 void Game::printWiner(){
     if(first_player.get_num_of_taken_cards() == second_player.get_num_of_taken_cards()){
@@ -252,7 +240,7 @@ string Game::draw_rate(){
 
 void Game::printStats(){
     cout << "\nPlayers state:\n\nPlayer #1 - name: " << this->first_player.get_player_name() << ", win rate: " << this->first_player.get_total_wins() << "% , cards won: " << this->first_player.get_cards_won() << "." << endl; 
-    cout << "Player #2 - name: " << this->second_player.get_player_name() << ", win rate: " << this->second_player.get_total_wins() << ", cards won: " << this->second_player.get_cards_won() << "." << endl; 
+    cout << "Player #2 - name: " << this->second_player.get_player_name() << ", win rate: " << this->second_player.get_total_wins() << "% , cards won: " << this->second_player.get_cards_won() << "." << endl; 
     cout << "Draw rate:" << this->draw_rate() << "% , amount of draws that happand:" << this->get_number_of_draws() << ".\n\n";    
 }
 

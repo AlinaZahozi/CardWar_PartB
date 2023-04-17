@@ -20,6 +20,7 @@ namespace ariel{
         string last_turn;
         int number_of_draws;
         bool set_winner;
+        bool print_winner;
         
         public:
             // Constructor
@@ -37,7 +38,6 @@ namespace ariel{
             string get_log();
             string get_last_turn();
             int get_number_of_draws();
-            bool print_winner;
 
             void set_last_turn(const string& move);
 
