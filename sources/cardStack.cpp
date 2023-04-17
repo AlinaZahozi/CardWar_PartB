@@ -1,8 +1,8 @@
 #include <iostream>
 #include <string>
-#include <vector>
-#include <random>
-#include <algorithm>
+#include <vector> //for shuffle method
+#include <random> //for shuffle method
+#include <algorithm> //for shuffle method
 #include "card.hpp"
 #include "cardStack.hpp"
 using namespace std;
@@ -11,7 +11,7 @@ using namespace std;
 namespace ariel{
 
     // Constructor
-    CardStack::CardStack():
+    CardStack::CardStack(): //Boot list
     heartsACE("HEARTS","ACE"),
     heartsTWO("HEARTS","TWO"),
     heartsTHREE("HEARTS","THREE"),
@@ -125,16 +125,17 @@ namespace ariel{
        this->cards.push(spadesKING);
     }
 
+    //Shuffles the cards independently and randomly
     void CardStack::shuffle(){
         vector <Card> cards_vec;
         while(!(this->cards.empty())){
-            cards_vec.push_back(this->cards.top());
+            cards_vec.push_back(this->cards.top()); //adding the top card of cards to a cards_vec.
             this->cards.pop();
         } 
-        mt19937 rng(random_device{}());
-        std::shuffle(cards_vec.begin(), cards_vec.end(), rng); 
+        mt19937 rng(random_device{}()); // Initializing a pseudorandom number.
+        std::shuffle(cards_vec.begin(), cards_vec.end(), rng); //Shuffle a cards_vec using the pseudorandom number and shuffle algorithm.
         for (const auto& card : cards_vec) {
-            this->cards.push(card);
+            this->cards.push(card); //Pushing the cards back to the cards stack.
         }
     }
 }

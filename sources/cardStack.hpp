@@ -2,9 +2,9 @@
 #include <iostream>
 #include <string>
 #include <stack>
-#include <vector>
-#include <random>
-#include <algorithm>
+#include <vector> //for shuffle method
+#include <random> //for shuffle method
+#include <algorithm> //for shuffle method
 #include "card.hpp"
 using namespace std;
 
@@ -12,7 +12,7 @@ namespace ariel{
 
     class CardStack {
     public: 
-        stack<Card> cards;  
+        stack<Card> cards; //A standard deck of cards containing 52 cards. 
 
         Card heartsACE;
         Card heartsTWO;
@@ -73,6 +73,7 @@ namespace ariel{
         // Constructor
         CardStack();
 
+        //Shuffles the cards independently and randomly
         void shuffle();
     };
 
