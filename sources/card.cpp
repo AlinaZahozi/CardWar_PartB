@@ -1,6 +1,6 @@
 #include <iostream>
 #include <string>
-#include <algorithm>
+#include <algorithm> //for capitalize method
 #include "card.hpp"
 using namespace std;
 
@@ -55,20 +55,13 @@ namespace ariel{
         return this->card;
     }
 
-
-    /*string Card::capitalize(const string& str){
-    string result = str;
-    transform(result.begin(), result.end(), result.begin(), [](char c) {return tolower(c);});    
-    result[0] = std::toupper(result[0]); 
-    return result;
-    }*/
-
+    //Converts the string to the required form, i.e. the first letter is uppercase and the rest are lowercase.
     string Card::capitalize(const string& str){
         string ans;
-        copy_if(str.begin(), str.end(), back_inserter(ans), [](char c) {return isalpha(c);});
-        transform(ans.begin(), ans.end(), ans.begin(), [](char c) {return tolower(c);});
+        copy_if(str.begin(), str.end(), back_inserter(ans), [](char c) {return isalpha(c);}); //Checks if the character is a letter and if not deletes it from the string.
+        transform(ans.begin(), ans.end(), ans.begin(), [](char c) {return tolower(c);}); //Converts uppercase to lowercase letters.
         if (!ans.empty()) {
-            ans[0] = toupper(ans[0]);
+            ans[0] = toupper(ans[0]); //Returns the first letter to be uppercase
         }
         return ans;
     }
